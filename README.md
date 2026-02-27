@@ -46,6 +46,7 @@ OPENAI_API_KEY=api_key_here
 
 ### 4. Add your data
 
+Place in the `data/` folder -> `womens_clothing_e-commerce_reviews.csv`
 The required column is:
 
 | Column | Description |
