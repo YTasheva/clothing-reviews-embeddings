@@ -82,3 +82,43 @@ for review, category in zip(reviews[:5], categorized[:5]):
     print()
 
 
+# Similarity search using ChromaDB
+print("Setting up ChromaDB...")
+chroma_client = chromadb.Client()
+
+try:
+    chroma_client.delete_collection("reviews")
+except Exception:
+    pass
+
+collection = chroma_client.create_collection(name="reviews")
+collection.add(
+    ids=[str(i) for i in range(len(reviews))],
+    documents=reviews,
+    embeddings=embeddings
+)
+print(f"Stored {collection.count()} reviews in ChromaDB.")
+
+
+def find_similar_reviews(review, collection, n_results=3):
+    """Find the most similar reviews to a given input review.
+
+    :param review: input review text
+    :param collection: ChromaDB collection to query
+    :param n_results: number of similar reviews to return
+    :return: list of similar review strings
+    """
+    review_embedding = get_embeddings_batch([review])[0]
+    results = collection.query(
+        query_embeddings=[review_embedding],
+        n_results=n_results
+    )
+    return results['documents'][0]
+
+
+first_review = "Absolutely wonderful - silky and sexy and comfortable"
+most_similar_reviews = find_similar_reviews(first_review, collection)
+
+print(f"\nMost similar reviews to: '{first_review}'")
+for i, review in enumerate(most_similar_reviews, 1):
+    print(f"  {i}. {review[:100]}...")
