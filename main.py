@@ -55,3 +55,30 @@ plt.show()
 print("Plot saved to data/review_embeddings_2d.png")
 
 
+# Feedback categorization
+topics = ['quality', 'fit', 'style', 'comfort', 'price', 'delivery']
+print("Embedding topic labels...")
+topic_embeddings = get_embeddings_batch(topics)
+
+
+def find_closest_topic(review_embedding, topic_embeddings, topics):
+    """Find the closest topic label to a given review embedding.
+
+    :param review_embedding: embedding vector of the review
+    :param topic_embeddings: list of topic embedding vectors
+    :param topics: list of topic label strings
+    :return: closest topic label
+    """
+    distances = [distance.cosine(review_embedding, topic_emb) for topic_emb in topic_embeddings]
+    return topics[np.argmin(distances)]
+
+
+categorized = [find_closest_topic(emb, topic_embeddings, topics) for emb in embeddings]
+
+print("\nSample categorizations:")
+for review, category in zip(reviews[:5], categorized[:5]):
+    print(f"  Category: {category}")
+    print(f"  Review:   {review[:80]}...")
+    print()
+
+
