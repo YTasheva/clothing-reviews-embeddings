@@ -17,7 +17,7 @@ clothing-reviews-embeddings/
 ├── requirements.txt
 ├── main.py
 ├── data/
-│   └── womens_clothing_e-commerce_reviews.csv
+│   └── clothing_reviews.csv
 └── .env
 ```
 
@@ -46,7 +46,7 @@ OPENAI_API_KEY=api_key_here
 
 ### 4. Add your data
 
-Place in the `data/` folder -> `womens_clothing_e-commerce_reviews.csv`
+Place in the `data/` folder -> `clothing_reviews.csv`
 The required column is:
 
 | Column | Description |
