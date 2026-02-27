@@ -39,3 +39,19 @@ embeddings = get_embeddings_batch(reviews)
 print(f"Generated {len(embeddings)} embeddings.")
 
 
+# Dimensionality reduction & visualization
+print("Running t-SNE...")
+tsne = TSNE(n_components=2, random_state=42)
+embeddings_2d = np.array(tsne.fit_transform(np.array(embeddings)))
+
+plt.figure(figsize=(10, 8))
+plt.scatter(embeddings_2d[:, 0], embeddings_2d[:, 1], alpha=0.5)
+plt.title("2D Visualization of Customer Reviews")
+plt.xlabel("Dimension 1")
+plt.ylabel("Dimension 2")
+plt.tight_layout()
+plt.savefig("data/review_embeddings_2d.png", dpi=150)
+plt.show()
+print("Plot saved to data/review_embeddings_2d.png")
+
+
