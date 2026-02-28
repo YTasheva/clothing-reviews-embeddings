@@ -26,7 +26,7 @@ clothing-reviews-embeddings/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/clothing-reviews-embeddings.git
+git clone https://github.com/YTasheva/clothing-reviews-embeddings.git
 cd clothing-reviews-embeddings
 ```
 
